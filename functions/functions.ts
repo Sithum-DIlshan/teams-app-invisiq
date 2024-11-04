@@ -16,20 +16,20 @@ interface LoginResponse {
 const TOKEN_KEY = "auth_token";
 const EXPIRES_IN_KEY = "expires_in";
 
-export async function validateAuth(): Promise<LoginResponse> {
-  const redis = await createClient()
-    .on("error", (err) => console.log("Redis Client Error", err))
-    .connect();
+export async function validateAuth() {
+  // const redis = await createClient()
+  //   .on("error", (err) => console.log("Redis Client Error", err))
+  //   .connect();
   // Check if token is cached in Redis
-  const cachedToken = await redis.get(TOKEN_KEY);
-  const cachedExpiry = await redis.get(EXPIRES_IN_KEY);
+  // // const cachedToken = await redis.get(TOKEN_KEY);
+  // const cachedExpiry = await redis.get(EXPIRES_IN_KEY);
 
-  if (cachedToken && cachedExpiry && Date.now() < Number(cachedExpiry)) {
-    console.log("Using cached token");
-    return {
-      access_token: cachedToken,
-      expires_in: Number(cachedExpiry) - Date.now(),
-    };
+  // if (cachedToken && cachedExpiry && Date.now() < Number(cachedExpiry)) {
+  //   console.log("Using cached token");
+  //   return {
+  //     access_token: cachedToken,
+  //     expires_in: Number(cachedExpiry) - Date.now(),
+  //   };
   }
 
   // If token not found or expired, call login API

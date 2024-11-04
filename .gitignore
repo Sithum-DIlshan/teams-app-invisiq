@@ -20,3 +20,5 @@ lib/
 
 # Dev tool directories
 /devTools/
+
+/nohup.out

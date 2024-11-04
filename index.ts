@@ -66,9 +66,10 @@ function convertToCamelCase(userId: string): string {
 
 server.post("/api/messages", async (req, res) => {
   await adapter.process(req, res, async (context) => {
+    console.log(context.activity);
     if (context.activity.text) {
       try {
-        const { access_token, expires_in } = await validateAuth();
+        // const { access_token, expires_in } = await validateAuth();
 
         const chatPayLoad = {
           message: context.activity.text,
@@ -76,19 +77,19 @@ server.post("/api/messages", async (req, res) => {
           modelType: 1,
         };
 
-        const piiResponse = await axios.post(
-          `http://localhost:8080/chat/send_message`,
-          chatPayLoad,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        );
+        // const piiResponse = await axios.post(
+        //   `http://localhost:8080/chat/send_message`,
+        //   chatPayLoad,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${access_token}`,
+        //     },
+        //   }
+        // );
 
-        await context.sendActivity(
-          piiResponse.data.pythonApiResponse.deanon_response
-        );
+        // await context.sendActivity(
+        //   piiResponse.data.pythonApiResponse.deanon_response
+        // );
       } catch (error) {
         console.error("Failed to call the NestJS service:", error.message);
         await context.sendActivity(
